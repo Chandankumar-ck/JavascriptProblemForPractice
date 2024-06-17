@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Todo</title>
+</head>
+<body>
+    <style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+    h2 {
+        text-align: center;
+        background-color: aqua;
+        padding: 10px;
+        margin-top: 0;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        border-radius: 5px;
+    }
+
+    .box {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+    .box h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .box p {
+        margin: 5px 0;
+        color: #666;
+    }
+    </style>
+    <h2>Fetch TODO</h2>
+
+    <div class="container">
+        <!-- Data will be dynamically added here -->
+    </div>
+
+    <script>
+        let container = document.querySelector('.container');
+
+        // Function to fetch data from the provided URL/API
+        function getData(URL) {
+            fetch(URL)
+            .then(function(res){
+                return res.json(); 
+            })
+            .then(function(res){
+                console.log(res); 
+                showData(res); // Call function to display data
+            })
+            .catch(function(err){
+                console.log(err, "something wrong"); // print if any errors during fetch
+            });
+        }
+
+        // Function to display/Show data in the DOM
+        function showData(array) {
+            array.forEach(function(ele, i) {
+                let box = document.createElement('div'); // Create a new <div> for each item. for card
+                box.className = 'box'; 
+
+                let h3 = document.createElement('h3'); 
+                h3.innerHTML = ele.title; // Set the inner HTML of <h3> to the todo title
+
+                let p = document.createElement('p'); 
+                p.innerHTML = ele.completed; // Set the inner HTML of <p> to the todo completed status
+
+                box.append(h3, p); // Append <h3> and <p> to the <div> box
+                container.append(box); // Append the <div> box to the main container
+            });
+        }
+
+        getData('https://jsonplaceholder.typicode.com/todos'); // Call the getData function with the API URL
+    </script>
+</body>
+</html>
