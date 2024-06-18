@@ -79,13 +79,17 @@
                 let box = document.createElement('div'); // Create a new <div> for each item. for card
                 box.className = 'box'; 
 
+                let checkbox = document.createElement('input');
+                checkbox.type = 'checkbox'; // Create a checkbox
+                checkbox.checked = ele.completed; // Set the checkbox based on the completed status
+                
                 let h3 = document.createElement('h3'); 
                 h3.innerHTML = ele.title; // Set the inner HTML of <h3> to the todo title
 
                 let p = document.createElement('p'); 
                 p.innerHTML = ele.completed; // Set the inner HTML of <p> to the todo completed status
 
-                box.append(h3, p); // Append <h3> and <p> to the <div> box
+                box.append(checkbox, h3, p); // Append checkbox, <h3> and <p> to the <div> box
                 container.append(box); // Append the <div> box to the main container
             });
         }
